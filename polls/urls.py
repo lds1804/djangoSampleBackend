@@ -15,6 +15,8 @@ urlpatterns = [
 
     path('polygon/<int:id>/', views.polygonRUD, name='polygonRUD'),
 
+    path('inregion/', views.polygonsInRegion, name='polygonsInRegion'),
+
 
     # path('<int:id>/', views.polygonRUD, name='polygonRUD'),
 

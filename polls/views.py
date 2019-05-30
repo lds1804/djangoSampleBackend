@@ -1,9 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseNotFound
+import numpy as np
 
 from .models import Provider
 from .models import Polygon
+
+
+from shapely.geometry import Point
+from shapely.geometry.polygon import Polygon as PolygonSha
 
 from django.views.decorators.csrf import csrf_exempt
 
@@ -13,10 +18,6 @@ from django.core import serializers
 
 from django.http import JsonResponse
 
-# def index(request):
-#     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-#     output = ', '.join([q.question_text for q in latest_question_list])
-#     return HttpResponse(output)
 
 @csrf_exempt
 def providerCreate(request):
@@ -201,8 +202,49 @@ def polygonRUD(request,id):
 		return HttpResponseNotFound('<h1>Not permited</h1>')
 
 
+@csrf_exempt
+def polygonsInRegion(request): 
+
+	polygons=Polygon.objects.all()
+
+	body_unicode = request.body.decode('utf-8')
+	body = json.loads(body_unicode)
+
+	latitude=body["latitude"]
+	longitude=body["longitude"]
+
+	print (type(body))
+	
+	polygonList=[]
+
+	for polygon in polygons:
+		
+		lats_vect=[]
+		long_vect=[]
+		listPoints=(polygon.geojson['features'][0]['geometry']['coordinates'][0])
+		for point in listPoints:
+			lats_vect.append(point[0])
+			long_vect.append(point[1])
+		
+		if(insidepolygon(lats_vect, long_vect, latitude, longitude)):
+			polygonList.append(polygon)	
+
+	 		
+	return	HttpResponse("Polygon List" + str(polygonList))		
 
 
 
 
-# Create your views here.
+def insidepolygon(lats_vect,long_vect,x,y):
+
+	print(str(lats_vect))
+	print(str(long_vect))
+	print(str(x))
+	print (str(y))
+
+	lons_lats_vect = np.column_stack((long_vect, lats_vect)) # Reshape coordinates
+	polygon = PolygonSha(lons_lats_vect) # create polygon
+	point = Point(y,x) # create point
+	return (point.within(polygon))
+	# return (polygon.contains(point)) # check if polygon contains point
+
