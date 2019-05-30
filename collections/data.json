@@ -1,0 +1,165 @@
+{
+	"variables": [],
+	"info": {
+		"name": "mozio",
+		"_postman_id": "6df48303-b126-d389-f5b5-b31a513ac6e1",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "inRegion",
+			"request": {
+				"url": "localhost:8000/inregion/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"latitude\" : -22.5849 , \n\t\n\t\"longitude\" : -47.6505\n\n\t\n\t\n}\t"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreateProvider",
+			"request": {
+				"url": "localhost:8000/provider",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-CSRFToken",
+						"value": "enn0trZStJmCrr8xHzhTu2fEBdJXGqqblATDGiBVRNXfSTJeISuM0iwVLmI7MA7n",
+						"description": ""
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"name\": \"viaQuatro Azul\",\n\t\"email\" : \"viaqatro@email.com\",\n\t\"phone\" : \"9999999999\",\n\t\"language\" : \"english\",\n\t\"currency\" : \"real\"\n\t\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "getProvider",
+			"request": {
+				"url": "localhost:8000/provider/4",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProvider",
+			"request": {
+				"url": "localhost:8000/provider/4/",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"name\": \"viaQuatro Alckmin\",\n\t\"email\" : \"viaqatro@email.com\",\n\t\"phone\" : \"9999999999\",\n\t\"language\" : \"english\",\n\t\"currency\" : \"real\"\n\t\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProvider",
+			"request": {
+				"url": "localhost:8000/provider/1/",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePolygon",
+			"request": {
+				"url": "localhost:8000/polygon",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\n\t\"name\" : \"area76\" , \n\t\"price\" : \"54.35\" ,\n\t\n\t\n\t\n\t\n\t\"provider_id\" : 3,\n\t\n\n     \"coordinates\": \n          [\n            [\n              -47.76580810546875,\n              -22.570902079599385\n            ],\n            [\n              -47.43072509765624,\n              -22.80403522599118\n            ],\n            [\n              -47.5543212890625,\n              -22.504944902976987\n            ],\n            [\n              -47.76580810546875,\n              -22.570902079599385\n            ]\n          ]\n        \n      \n    \n  \n\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t \n\t\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GetPolygon",
+			"request": {
+				"url": "localhost:8000/polygon/7",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePolygon",
+			"request": {
+				"url": "localhost:8000/polygon/7/",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\n\t\"name\" : \"area3 alckmin\" , \n\t\"price\" : \"54.35\" ,\n\t\n\t\n\t\n\t\n\t\"provider_id\" : 3,\n\t\n\n     \"geojson\": \n          [\n            [\n              -47.76580810546875,\n              -22.570902079599385\n            ],\n            [\n              -47.43072509765624,\n              -22.80403522599118\n            ],\n            [\n              -47.5543212890625,\n              -22.504944902976987\n            ],\n            [\n              -47.76580810546875,\n              -22.570902079599385\n            ]\n          ]\n        \n      \n    \n  \n\n\t\n\t\n\t\n\t\n\t\n\t\n\t\n\t \n\t\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePolygon",
+			"request": {
+				"url": "localhost:8000/polygon/7/",
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

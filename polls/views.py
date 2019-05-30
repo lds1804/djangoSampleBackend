@@ -40,7 +40,7 @@ def providerCreate(request):
 
 		
 
-		return HttpResponse("Provider added: " + provider.id)
+		return HttpResponse("Provider added: " + str(provider.id))
 	else :
 		return HttpResponseNotFound('<h1>Entry not found</h1>')
 
@@ -121,7 +121,7 @@ def polygonCreate(request):
 
 		name= body["name"]
 		price=body["price"]
-		geojson=body["geojson"]
+		coordinates=body["coordinates"]
 		providerID=body["provider_id"]
 
 		try:
@@ -134,7 +134,7 @@ def polygonCreate(request):
 
 
 		
-		polygon =Polygon(name=name,price=price,geojson=geojson,provider=provider)
+		polygon =Polygon(name=name,price=price,geojson=coordinates,provider=provider)
 		polygon.save()
  
 		
@@ -154,9 +154,10 @@ def polygonRUD(request,id):
 		polygon = Polygon.objects.filter(pk=id)
 
 
-		if(polygon==None):
+		if(len(polygon)==0):
 			return JsonResponse({'status_code': 404,'error': 'The resource was not found'},status=404)
 		else: 
+			print(str(polygon))
 			data = serializers.serialize("json", polygon)
 			return JsonResponse(data,safe=False)	
 
@@ -221,7 +222,7 @@ def polygonsInRegion(request):
 		
 		lats_vect=[]
 		long_vect=[]
-		listPoints=(polygon.geojson['features'][0]['geometry']['coordinates'][0])
+		listPoints=polygon.geojson
 		for point in listPoints:
 			lats_vect.append(point[0])
 			long_vect.append(point[1])
@@ -229,7 +230,7 @@ def polygonsInRegion(request):
 		if(insidepolygon(lats_vect, long_vect, latitude, longitude)):
 			polygonList.append(polygon)	
 
-	 		
+
 	return	HttpResponse("Polygon List" + str(polygonList))		
 
 
